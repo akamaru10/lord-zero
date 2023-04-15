@@ -1,6 +1,4 @@
 import pygame
-from pygame.sprite import Sprite
-
 from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING
 
 pygame.init()
@@ -8,15 +6,13 @@ pygame.init()
 X_POS = 80
 Y_POS = 310
 JUMP_VEL = 8.5
-Y_POS_DUCK = 340
 
-
-class Dinosaur(Sprite):
+class Dinosaur:
     def __init__(self):
         self.image = RUNNING[0]
         self.dino_react = self.image.get_rect()
-        self.dino_react.x = X_POS
-        self.dino_react.y = Y_POS
+        self.dino_react.x = 80
+        self.dino_react.y = 310
         self.step_index = 0
         self.jump_vel = JUMP_VEL
         self.dino_jump = False
@@ -34,20 +30,13 @@ class Dinosaur(Sprite):
         if user_input[pygame.K_UP] and not self.dino_jump:
             self.dino_jump = True
             self.dino_run = False
-            self.dino_duck = False
         elif not self.dino_jump:
             self.dino_jump = False
             self.dino_run = True
-            self.dino_duck = False
-        elif  not self.dino_duck:
-            self.dino_duck = True
-            self.dino_run = False
-            self.dino_run = False
-        
+
         if user_input[pygame.K_DOWN]:
             self.dino_duck = True
             self.dino_run = False
-            self.dino_jump = False
 
         if self.step_index >= 10:
             self.step_index = 0
@@ -55,8 +44,8 @@ class Dinosaur(Sprite):
     def run(self):
         self.image = RUNNING[0] if self.step_index < 5 else RUNNING[1]
         self.dino_react = self.image.get_rect()
-        self.dino_react.x = X_POS
-        self.dino_react.y = Y_POS
+        self.dino_react.x = 80
+        self.dino_react.y = 310
         self.step_index += 1
 
     def jump(self):
@@ -73,10 +62,9 @@ class Dinosaur(Sprite):
     def duck(self):
         self.image = DUCKING[0] if self.step_index < 5 else DUCKING[1]
         self.dino_react = self.image.get_rect()
-        self.dino_react.x = X_POS
-        self.dino_react.y = Y_POS_DUCK
+        self.dino_react.x = 80
+        self.dino_react.y = 355
         self.step_index += 1
-        self.dino_duck = False
 
     def draw(self, screen):
         screen.blit(self.image, (self.dino_react.x, self.dino_react.y))
