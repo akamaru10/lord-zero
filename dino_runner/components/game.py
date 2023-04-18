@@ -72,8 +72,7 @@ class Game:
     def draw_score(self):
         self.draw_text(
             f"Score: {self.score}", 22,
-            (1000, 50), (0,0,0)
-            )
+            (1000, 50), (0,0,0))
 
     def draw(self):
         self.clock.tick(FPS)
@@ -104,13 +103,13 @@ class Game:
                  self.run()
 
     def show_menu(self):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((255, 255, 255))
         half_screen_height = SCREEN_HEIGHT // 2
         half_screen_width = SCREEN_WIDTH // 2
 
         if self.death_count == 0:
             font = pygame.font.Font(FONT_STYLE, 22)
-            text = font.render("Press any key to start", True, (255, 255, 255))
+            text = font.render("Press any key to start", True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = (half_screen_width, half_screen_height)
             self.screen.blit(text, text_rect)
@@ -119,12 +118,12 @@ class Game:
 
             self.draw_text(
                 "Press any key to Restart", 22,
-                (half_screen_width, half_screen_height), (0,0,0)
-                )
+                (half_screen_width, half_screen_height), (0,0,0))
+            
             self.draw_text(
                 f"Deaths: {self.death_count}", 22, 
-                (half_screen_width, 80), (195,0,0)
-                )
+                (half_screen_width, 80), (195,0,0) )
+            
             self.draw_text(
                 f"Score: {self.score}", 22,
                 (half_screen_width, half_screen_height + 40), (0,0,0) )
