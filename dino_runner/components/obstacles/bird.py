@@ -23,6 +23,9 @@ class Bird(Obstacle):
         if self.rect.x < -self.rect.width:
             obstacles.pop()
 
+        
+        
+
         if self.step_index >= 10:
             self.step_index = 0
 
