@@ -30,7 +30,6 @@ class Dinosaur(Sprite):
         self.type = DEFAULT_TYPE
         self.image = RUN_IMG[self.type][0]
         self.dino_rect = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
         self.dino_rect.x = X_POS
         self.dino_rect.y = Y_POS
         self.step_index = 0

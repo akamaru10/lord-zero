@@ -5,9 +5,9 @@ from dino_runner.utils.constants import BIRD
 
 
 class Bird(Obstacle):
-    def __init__(self, image):
+    def __init__(self):
         self.type = 0
-        #self.image = BIRD
+        self.image = BIRD
         super().__init__(self.image, self.type)
         self.Y_POS = 250
         random_high = random.random()

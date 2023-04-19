@@ -2,6 +2,8 @@ import pygame
 import time
 
 from dino_runner.utils.constants import *
+from dino_runner.utils.constants import BG,ICON,SCREEN_HEIGHT,SCREEN_WIDTH,TITLE,FPS
+from dino_runner.utils.text_utils import *
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
@@ -18,7 +20,8 @@ class Game:
         self.running = False
         self.game_speed = 20
         self.score = 0
-        self.lifes_left = 3
+        self.font = pygame.font.Font(FONT_STYLE)
+        self.death_count = 0
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.player = Dinosaur()
@@ -35,6 +38,9 @@ class Game:
         pygame.quit()
 
     def run(self):
+        MENU.stop ()
+        GAME.set_volume (0.3)
+        GAME.play(-1)
 
         self.playing = True
         self.obstacle_manager.reset_obstacles()
@@ -78,14 +84,12 @@ class Game:
     def draw_score(self):
         self.draw_text(
             f"Score: {self.score}", 22,
-            (1000, 50), (0,0,0)
-            )
+            (1000, 50), (0,0,0))
     
     def hearts_left(self):
         self.draw_text(
                 f"Hearts Left: {self.lifes_left}", 22, 
-                (1000, 80), (195,0,0)
-                )
+                (1000, 80), (195,0,0))
         
     def draw_power_up_time(self):
         if self.player.has_power_ups:
@@ -99,8 +103,8 @@ class Game:
                 if time_to_show >= 0:
                     self.draw_text(
                         f"{self.player.type.capitalize()} for {time_to_show} seconds", 22,
-                        (500, 40), (0,0,0)
-                    )
+                        (500, 40), (0,0,0))
+                    
                 else:
                     self.player.has_power_ups = False
                     self.player.type = DEFAULT_TYPE
@@ -139,27 +143,34 @@ class Game:
                 self.run()
 
     def show_menu(self):
+        MENU.set_volume (0.3)
+        MENU.play (-1)
         self.screen.fill((255, 255, 255))
         half_screen_height = SCREEN_HEIGHT // 2
         half_screen_width = SCREEN_WIDTH // 2
+        
+        if self.death_count == 0:
+            font = pygame.font.Font(FONT_STYLE, 22)
+            text = font.render("Press any key to start", True, (0, 0, 0))
+            text_rect = text.get_rect()
+            text_rect.center = (half_screen_width, half_screen_height)
+            self.screen.blit(text, text_rect)
+        else:
+            self.screen.blit(ICON, (half_screen_width - 20, half_screen_height - 140))
 
-        if self.lifes_left == 3:
-            self.draw_text(
-                "Press any key to start", 22,
-                (half_screen_width, half_screen_height), (0,0,0)
-                )
-        elif self.lifes_left == 0:
-            # LOOP_GAME.stop()
-            self.screen.blit(ICON, (half_screen_width - 45, half_screen_height - 140))    
             self.draw_text(
                 "Press any key to Restart", 22,
-                (half_screen_width, half_screen_height), (0,0,0)
-                )
+                (half_screen_width, half_screen_height), (0,0,0))
+            
             self.draw_text(
-                f"Score: {self.score + 1}", 22,
-                (half_screen_width, half_screen_height + 40), (0,0,0)
-                )
+                f"Deaths: {self.death_count}", 22, 
+                (half_screen_width, 80), (195,0,0) )
+            
+            self.draw_text(
+                f"Score: {self.score}", 22,
+                (half_screen_width, half_screen_height + 40), (0,0,0) )
 
+    
         pygame.display.flip()
 
         self.handle_events_on_menu()
