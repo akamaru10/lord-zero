@@ -15,7 +15,7 @@ class PowerUpManager:
 
     def generate_power_up(self, score):
         if len(self.power_ups) == 0 and self.when_appears == score:
-            self.when_appears += random.randint(200, 300)
+            self.when_appears += random.randint(100, 150)
 
             self.power_up_type = random.random()
 
@@ -38,10 +38,9 @@ class PowerUpManager:
                 game.player.type = power_up.type
 
                 if power_up.type == HEART_TYPE:
-                    game.player.power_up_time
-                    game.player.power_up_time = power_up.start_time + (30 * 1000)
+                    game.player.power_up_time = power_up.start_time + (15 * 100)
                 else:
-                    game.player.power_up_time = power_up.start_time + (power_up.duration * 1000)
+                    game.player.power_up_time = power_up.start_time + (10 * 100)
 
                 self.power_ups.remove(power_up)
 
