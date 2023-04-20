@@ -20,7 +20,6 @@ class Game:
         self.running = False
         self.game_speed = 20
         self.score = 0
-        self.best_score = 0
         self.font = pygame.font.Font(FONT_STYLE)
         self.death_count = 0
         self.x_pos_bg = 0
@@ -77,9 +76,7 @@ class Game:
         if self.score % 100 == 0:
             self.game_speed += 5
 
-    def best_score(self):
-      self.draw_text( f"Best Score: {self.best_score}", 22, (1000, 80), (0,0,0))        
-
+    
     def draw_text(self, phrase, size, position, rgb):
         font = pygame.font.Font(FONT_STYLE, size)
         text = font.render(phrase, True, rgb)
