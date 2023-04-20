@@ -31,7 +31,6 @@ class ObstacleManager:
                     break
                 elif game.player.type == HAMMER_TYPE:
                     self.obstacles.remove(obstacle)
-                    game.sounds[1].play()
                 elif game.player.type == SHIELD_TYPE:
                     return
                 elif game.player.type == HEART_TYPE:
