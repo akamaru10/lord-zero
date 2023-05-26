@@ -38,7 +38,7 @@ class PowerUpManager:
 
                 if power_up.type == HEART_TYPE:
                     game.sounds[2].play()
-                    game.player.power_up_time = power_up.start_time + (30 * 1000)
+                    game.player.power_up_time = power_up.start_time + (11 * 1000)
                 else:
                     game.player.power_up_time = power_up.start_time + (power_up.duration * 1000)
 

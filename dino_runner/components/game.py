@@ -39,6 +39,7 @@ class Game:
         pygame.quit()
 
     def run(self):
+        
         self.playing = True
         self.power_up_manager.reset_power_ups()
         self.score = 0
@@ -89,7 +90,7 @@ class Game:
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill('#FFFFFF')
+        self.screen.fill((255, 255, 255))#FFFFFF
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)

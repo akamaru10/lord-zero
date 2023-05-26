@@ -37,7 +37,7 @@ class ObstacleManager:
                     return
                 elif game.player.type == HEART_TYPE:
                     self.obstacles.pop()
-                    game.score -= 100
+                    game.score -= 50
                     game.player.power_up_time = 0
 
     def reset_obstacles(self):
