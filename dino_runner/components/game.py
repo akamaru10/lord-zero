@@ -1,3 +1,4 @@
+
 import pygame
 
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
@@ -28,6 +29,7 @@ class Game:
         self.power_up_manager = PowerUpManager()
         self.sounds = []
         self.load_sounds()
+        self.best_score = 0
 
     def execute(self):
         self.running = True
@@ -39,7 +41,6 @@ class Game:
         pygame.quit()
 
     def run(self):
-        
         self.playing = True
         self.power_up_manager.reset_power_ups()
         self.score = 0
@@ -67,9 +68,14 @@ class Game:
         self.obstacle_manager.update(self)
         self.update_score()
         self.power_up_manager.update(self)
+
+    def best_score(self):
+        return self.best_score
     
     def update_score(self):
         self.score += 1
+        if self.score > self.best_score:
+            self.best_score = self.score
         if self.score % 100 == 0:
             self.game_speed += 3
     
@@ -90,12 +96,13 @@ class Game:
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((255, 255, 255))#FFFFFF
+        self.screen.fill((255, 117, 24))#FFFFFF
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         draw_text(self, f"Score: {self.score}", 1000, 50)
         draw_text(self, f"Deaths: {self.death_count}", 850, 50)
+        draw_text(self, f"Best Score: {self.best_score}", 700, 50)
         self.draw_power_up_time()
         self.power_up_manager.draw(self.screen)
         pygame.display.update()
@@ -127,9 +134,10 @@ class Game:
             draw_text(self, "Press any key to start", half_screen_width, half_screen_height, FontEnum.JURASSIC_FONT)
         else:
             self.screen.blit(ICON, (half_screen_width - 20, half_screen_height - 140))
-            draw_text(self, "Press any key to start", half_screen_width, half_screen_height, FontEnum.JURASSIC_FONT)
+            draw_text(self, "GAME OVER", half_screen_width, half_screen_height, FontEnum.JURASSIC_FONT)
             draw_text(self, f"Score: {self.score}", 1000, 50)
             draw_text(self, f"Deaths: {self.death_count}", 850, 50)
+            draw_text(self, f"Best Score: {self.best_score}", 700, 50)
 
         pygame.display.flip()  
 

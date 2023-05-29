@@ -12,7 +12,7 @@ class ObstacleManager:
     
     def update(self, game):
         if len(self.obstacles) == 0:
-            if random.random() < 0.8:
+            if random.random() < 0.7:
                 self.obstacles.append(Cactus((SMALL_CACTUS + LARGE_CACTUS)))
             else:
                 self.obstacles.append(Bird())
